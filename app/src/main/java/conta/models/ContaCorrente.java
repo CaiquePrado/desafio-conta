@@ -1,41 +1,33 @@
 package conta.models;
 
-import java.util.logging.Logger;
+import conta.models.interaces.OperacoesConta;
+
 
 public class ContaCorrente extends Conta {
-
-  private static final Logger log = Logger.getLogger(ContaCorrente.class.getName());
-
-  public ContaCorrente( Double saldo) {
-    super(saldo);
+  public ContaCorrente(Double saldoInicial) {
+    super(saldoInicial);
   }
 
   @Override
-  public void deposito(Double valor) {
-    setSaldo(getSaldo() + valor);
+  public void depositar(Double valor) {
+    if (valor > 0) {
+      super.depositar(valor);
+    } else {
+      throw new RuntimeException("Valor de depósito inválido.");
+    }
   }
 
   @Override
-  public Double saldo() {
-    return getSaldo();
+  public void sacar(Double valor) {
+    if (getSaldo() >= valor) {
+      super.depositar(-valor);
+    } else {
+      throw new RuntimeException("Saldo insuficiente para saque.");
+    }
   }
 
   @Override
-  public void saque(Double valor) {
-   if(getSaldo() - valor < -500.0D){
-    log.info("Valor superior ao limite da sua conta.");
-
-   }
-   else if (getSaldo() - valor >= -500.0D){
-     setSaldo(getSaldo() - valor);
-     }
+  public Double getSaldo() {
+    return super.getSaldo();
   }
 }
-
-
-//Para a conta corrente:
-//  - Pode ser aberta sem depósito inicial.
-//  - Permite saques e pode ficar negativa até R$ -500,00.
-//  - Ao visualizar o saldo, deve mostrar o saldo total sem alteração.
-
-                       

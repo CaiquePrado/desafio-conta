@@ -3,30 +3,32 @@ package conta.models;
 import conta.models.interaces.OperacoesConta;
 
 public abstract class Conta implements OperacoesConta {
-  
   private Double saldo;
 
-  public Conta( Double saldo){
+  public Conta(Double saldo) {
     this.saldo = saldo;
   }
 
-  public void depositar(Double valor){
-    if(this.saldo >= valor){
-      this.saldo -= valor;
+  @Override
+  public void depositar(Double valor) {
+    if (valor > 0) {
+      this.saldo += valor;
+    } else {
+      throw new RuntimeException("Valor de depósito inválido.");
     }
   }
 
-  public void sacar(Double valor){
-    if(this.saldo >= valor){
+  @Override
+  public void sacar(Double valor) {
+    if (this.saldo >= valor) {
       this.saldo -= valor;
+    } else {
+      throw new RuntimeException("Saldo insuficiente para saque.");
     }
   }
 
-  public Double getSaldo(){
-    return saldo;
-  }
-
-  public void setSaldo(Double saldo) {
-    this.saldo = saldo;
+  @Override
+  public Double getSaldo() {
+    return this.saldo;
   }
 }
