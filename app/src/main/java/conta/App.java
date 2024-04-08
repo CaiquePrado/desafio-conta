@@ -2,7 +2,7 @@ package conta;
 
 import java.util.logging.Logger;
 
-import conta.models.Cliente;
+import conta.models.Usuario;
 import conta.models.Conta;
 import conta.models.ContaCorrente;
 import conta.models.ContaInvestimento;
@@ -13,7 +13,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        Cliente cliente = new Cliente();
+        Usuario cliente = new Usuario();
         Conta contaCorrente = new ContaCorrente(50.0D);
         Conta contaInvestimento = new ContaInvestimento(1000.0D);
 

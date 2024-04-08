@@ -4,12 +4,12 @@ import java.util.logging.Logger;
 
 import javax.management.RuntimeErrorException;
 
-public class Contapoupanca extends Conta {
+public class ContaPoupanca extends Conta {
 
-  private static final Logger log = Logger.getLogger(Contapoupanca.class.getName());
+  private static final Logger log = Logger.getLogger(ContaPoupanca.class.getName());
   private static final Double DEPOSITO_ININICAL = 50.0D;
 
-  public Contapoupanca(Double saldo) {
+  public ContaPoupanca(Double saldo) {
     super(saldo);
     if (saldo < DEPOSITO_ININICAL) {
       throw new RuntimeErrorException(null, "O valor mínimo deve ser R$50");
