@@ -1,12 +1,7 @@
 package conta.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.logging.Logger;
-
-import javax.management.RuntimeErrorException;
 
 public class ContaInvestimento extends Conta {
     private LocalDateTime dataDeAbertura;
