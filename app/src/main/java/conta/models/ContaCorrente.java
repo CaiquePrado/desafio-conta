@@ -1,8 +1,5 @@
 package conta.models;
 
-import conta.models.interaces.OperacoesConta;
-
-
 public class ContaCorrente extends Conta {
   public ContaCorrente(Double saldoInicial) {
     super(saldoInicial);
