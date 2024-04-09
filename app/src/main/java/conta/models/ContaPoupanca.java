@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 import javax.management.RuntimeErrorException;
 
-public class ContaInvestimento extends Conta {
-    public ContaInvestimento(Double saldoInicial) {
+public class ContaPoupanca extends Conta {
+    public ContaPoupanca(Double saldoInicial) {
         super(saldoInicial);
     }
 
