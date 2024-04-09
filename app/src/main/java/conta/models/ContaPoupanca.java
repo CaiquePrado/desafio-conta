@@ -1,12 +1,20 @@
 package conta.models;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
 import javax.management.RuntimeErrorException;
 
 public class ContaPoupanca extends Conta {
+    private LocalDate dataDeAbertura;
+
     public ContaPoupanca(Double saldoInicial) {
         super(saldoInicial);
+        dataDeAbertura = LocalDate.now();
+        if(saldoInicial <50.0){
+            throw new RuntimeException("O depósito inicial deve ser de pelo menos R$ 50,00.");
+        }
     }
 
     @Override
@@ -21,14 +29,16 @@ public class ContaPoupanca extends Conta {
     @Override
     public void sacar(Double valor) {
         if (getSaldo() >= valor) {
-            super.depositar(-valor);
+            super.sacar(valor);
         } else {
-            throw new RuntimeException("Saldo insuficiente para saque.");
+            throw new RuntimeException("A conta poupança não pode ficar negativa");
         }
     }
 
     @Override
     public Double getSaldo() {
-        return super.getSaldo();
+        LocalDate hoje = LocalDate.now();
+        long dias = ChronoUnit.DAYS.between(dataDeAbertura, hoje);
+        return super.getSaldo() + (0.05 * dias);
     }
 }
