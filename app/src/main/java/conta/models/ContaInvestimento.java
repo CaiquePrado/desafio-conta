@@ -1,12 +1,19 @@
 package conta.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
 import javax.management.RuntimeErrorException;
 
 public class ContaInvestimento extends Conta {
+    private LocalDateTime dataDeAbertura;
+
     public ContaInvestimento(Double saldoInicial) {
         super(saldoInicial);
+        dataDeAbertura = LocalDateTime.now();
         if(saldoInicial <1000.0){
             throw new RuntimeException("O depósito inicial deve ser de pelo menos R$ 1000,00.");
         }
@@ -23,15 +30,24 @@ public class ContaInvestimento extends Conta {
 
     @Override
     public void sacar(Double valor) {
-        if (getSaldo() >= valor) {
-            super.depositar(-valor);
+        if (dataDeAbertura != null && ChronoUnit.DAYS.between(dataDeAbertura, LocalDateTime.now()) >= 1) {
+            if (valor > 0 && valor <= getSaldo()) {
+                super.sacar(valor);
+            } else {
+                throw new RuntimeException("Valor de saque inválido ou saldo insuficiente.");
+            }
         } else {
-            throw new RuntimeException("Saldo insuficiente para saque.");
+            throw new RuntimeException("Você só pode sacar após 1 dia do primeiro depósito.");
         }
     }
 
     @Override
     public Double getSaldo() {
-        return super.getSaldo();
+        LocalDateTime hoje = LocalDateTime.now();
+        long dias = ChronoUnit.DAYS.between(dataDeAbertura, hoje);
+        return super.getSaldo() + (0.1 * dias);
+    }
+    public LocalDateTime getDataDeAbertura() {
+        return dataDeAbertura;
     }
 }
