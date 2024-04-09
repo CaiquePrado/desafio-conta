@@ -1,10 +1,7 @@
 package conta.models;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import conta.models.interaces.OperacoesConta;
 
 public class Usuario {
     private Map<String,Conta> listaDeContas = new HashMap<>();

@@ -2,9 +2,6 @@ package conta.models;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.logging.Logger;
-
-import javax.management.RuntimeErrorException;
 
 public class ContaPoupanca extends Conta {
     private LocalDate dataDeAbertura;
