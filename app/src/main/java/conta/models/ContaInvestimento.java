@@ -7,6 +7,9 @@ import javax.management.RuntimeErrorException;
 public class ContaInvestimento extends Conta {
     public ContaInvestimento(Double saldoInicial) {
         super(saldoInicial);
+        if(saldoInicial <1000.0){
+            throw new RuntimeException("O depósito inicial deve ser de pelo menos R$ 1000,00.");
+        }
     }
 
     @Override

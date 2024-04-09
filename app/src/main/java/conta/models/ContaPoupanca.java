@@ -7,6 +7,9 @@ import javax.management.RuntimeErrorException;
 public class ContaPoupanca extends Conta {
     public ContaPoupanca(Double saldoInicial) {
         super(saldoInicial);
+        if(saldoInicial <50.0){
+            throw new RuntimeException("O depósito inicial deve ser de pelo menos R$ 50,00.");
+        }
     }
 
     @Override

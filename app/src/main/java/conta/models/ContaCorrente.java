@@ -19,10 +19,10 @@ public class ContaCorrente extends Conta {
 
   @Override
   public void sacar(Double valor) {
-    if (getSaldo() >= valor) {
+    if (getSaldo() - valor >= -500.0) {
       super.depositar(-valor);
     } else {
-      throw new RuntimeException("Saldo insuficiente para saque.");
+      throw new RuntimeException("A conta só pode ficar negativa em R$ 500.00.");
     }
   }
 
