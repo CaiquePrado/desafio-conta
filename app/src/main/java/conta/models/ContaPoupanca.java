@@ -1,14 +1,15 @@
 package conta.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class ContaPoupanca extends Conta {
-    private LocalDate dataDeAbertura;
+    private LocalDateTime dataDeAbertura;
 
     public ContaPoupanca(Double saldoInicial) {
         super(saldoInicial);
-        dataDeAbertura = LocalDate.now();
+        this.dataDeAbertura = LocalDateTime.now();
         if(saldoInicial <50.0){
             throw new RuntimeException("O depósito inicial deve ser de pelo menos R$ 50,00.");
         }
@@ -25,8 +26,15 @@ public class ContaPoupanca extends Conta {
 
     @Override
     public Double getSaldo() {
-        LocalDate hoje = LocalDate.now();
-        long dias = ChronoUnit.DAYS.between(dataDeAbertura, hoje);
-        return super.getSaldo() + (0.05 * dias);
+        long diasDesdePrimeiroDeposito = ChronoUnit.DAYS.between(this.dataDeAbertura, LocalDateTime.now());
+        return super.getSaldo() * Math.pow(1.05, diasDesdePrimeiroDeposito);
+    }
+
+    public LocalDateTime getDataDeAbertura() {
+        return dataDeAbertura;
+    }
+
+    public void setDataDeAbertura(LocalDateTime dataDeAbertura) {
+        this.dataDeAbertura = dataDeAbertura;
     }
 }
