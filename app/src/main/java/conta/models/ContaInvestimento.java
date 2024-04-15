@@ -15,15 +15,6 @@ public class ContaInvestimento extends Conta {
     }
 
     @Override
-    public void depositar(Double valor) {
-        if (valor > 0) {
-            super.depositar(valor);
-        } else {
-            throw new RuntimeException("Valor de depósito inválido.");
-        }
-    }
-
-    @Override
     public void sacar(Double valor) {
         if (dataDeAbertura != null && ChronoUnit.DAYS.between(dataDeAbertura, LocalDateTime.now()) >= 1) {
             if (valor > 0 && valor <= getSaldo()) {
