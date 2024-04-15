@@ -5,7 +5,7 @@ import conta.models.interaces.OperacoesConta;
 public abstract class Conta implements OperacoesConta {
   private Double saldo;
 
-  public Conta(Double saldo) {
+  protected Conta(Double saldo) {
     this.saldo = saldo;
   }
 

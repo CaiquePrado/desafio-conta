@@ -2,8 +2,6 @@ package conta;
 
 import conta.models.Usuario;
 import conta.models.Conta;
-//import conta.models.ContaCorrente;
-//import conta.models.ContaInvestimento;
 
 public class App {
 
