@@ -15,34 +15,28 @@ public class ContaInvestimento extends Conta {
     }
 
     @Override
-    public void depositar(Double valor) {
-        if (valor > 0) {
-            super.depositar(valor);
-        } else {
-            throw new RuntimeException("Valor de depósito inválido.");
-        }
-    }
-
-    @Override
     public void sacar(Double valor) {
-        if (dataDeAbertura != null && ChronoUnit.DAYS.between(dataDeAbertura, LocalDateTime.now()) >= 1) {
-            if (valor > 0 && valor <= getSaldo()) {
-                super.sacar(valor);
-            } else {
-                throw new RuntimeException("Valor de saque inválido ou saldo insuficiente.");
-            }
-        } else {
-            throw new RuntimeException("Você só pode sacar após 1 dia do primeiro depósito.");
+        if (ChronoUnit.DAYS.between(getDataDeAbertura(), LocalDateTime.now()) <= 1) {
+            throw new RuntimeException(
+                    "Não é permitido sacar dinheiro se o primeiro depósito foi realizado há menos de 1 dia.");
         }
+        if (valor > getSaldo()) {
+            throw new RuntimeException("Não é permitido sacar mais que o total de crédito na conta.");
+        }
+        super.sacar(valor);
     }
 
     @Override
     public Double getSaldo() {
-        LocalDateTime hoje = LocalDateTime.now();
-        long dias = ChronoUnit.DAYS.between(dataDeAbertura, hoje);
-        return super.getSaldo() + (0.1 * dias);
+        long diasDesdePrimeiroDeposito = ChronoUnit.DAYS.between(getDataDeAbertura(), LocalDateTime.now());
+        return super.getSaldo() * Math.pow(1.10, diasDesdePrimeiroDeposito);
     }
+
     public LocalDateTime getDataDeAbertura() {
         return dataDeAbertura;
+    }
+
+    public void setDataDeAbertura(LocalDateTime dataDeAbertura) {
+        this.dataDeAbertura = dataDeAbertura;
     }
 }
